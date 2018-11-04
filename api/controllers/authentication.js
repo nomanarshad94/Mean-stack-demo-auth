@@ -20,7 +20,7 @@ module.exports.register = function(req, res) {
 
   user.name = req.body.name;
   user.email = req.body.email;
-
+ 
   user.setPassword(req.body.password);
 
   user.save(function(err) {
@@ -33,6 +33,25 @@ module.exports.register = function(req, res) {
   });
 
 };
+//updateOne
+  module.exports.updateOne = function(req, res) {
+
+  try{
+
+  
+    User.findOneAndUpdate({email: req.body.email}, {"string1":req.body.string1,"string2":req.body.string2,"longestSubSeqString":req.body.longestSubSeqString},function(err){
+    res.status(200);
+    res.json({
+      "token" : req.token
+    });
+
+  });  
+  }catch(e){
+console.log(e);
+
+  }
+};
+
 
 module.exports.login = function(req, res) {
 

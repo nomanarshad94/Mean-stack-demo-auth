@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+.navbar-custom {
+    color: #CC3333;
+    background-color: rgb(0, 204, 255);
+    font: bold;
+    
+    
+}
+.navbar-default {
+    background-color:teal;
+    background-image: none;
+    background-repeat: no-repeat;
+}
+.navbar-font{
+    color: aliceblue;
+    background-color:rgb(250, 100, 0);
+}
+.red{
+    color: red;
+}
+
+.blue{
+    color: blue;   
+}
+
+.green{
+    color: green;
+}

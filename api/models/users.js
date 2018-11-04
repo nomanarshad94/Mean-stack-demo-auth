@@ -8,12 +8,17 @@ var userSchema = new mongoose.Schema({
     unique: true,
     required: true
   },
+ 
   name: {
     type: String,
     required: true
   },
   hash: String,
-  salt: String
+  salt: String,
+  string1:{type: String,default: ''},
+  string2:{type: String,default: ''},
+  longestSubSeqString:{type: String,default: ''}
+
 });
 
 userSchema.methods.setPassword = function(password){
@@ -24,6 +29,12 @@ userSchema.methods.setPassword = function(password){
 userSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha512').toString('hex');
   return this.hash === hash;
+};
+
+  userSchema.methods.setData=function(s1,s2,s3){
+  this.string1 = s1;
+  this.string2 = s2;
+  this.longestSubSeqString=s3;
 };
 
 userSchema.methods.generateJwt = function() {

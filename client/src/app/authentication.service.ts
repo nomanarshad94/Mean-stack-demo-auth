@@ -8,6 +8,9 @@ export interface UserDetails {
   _id: string;
   email: string;
   name: string;
+  string1:string;
+  string2:string;
+  longestSubSeqString;
   exp: number;
   iat: number;
 }
@@ -20,6 +23,9 @@ export interface TokenPayload {
   email: string;
   password: string;
   name?: string;
+  string1?:String;
+  string2?:String;
+  longestSubSeqString?:String;
 }
 
 @Injectable()
@@ -82,6 +88,32 @@ export class AuthenticationService {
     return request;
   }
 
+  private myRequest(method: 'post', type: 'updateOne',user?:TokenPayload): Observable<any> {
+    let base;
+
+
+      
+    if (method === 'post') {
+
+      base = this.http.post(`/api/${type}`, user);
+      
+ 
+    } 
+    const request = base.pipe(
+      map((data: TokenResponse) => {
+        if (data.token) {
+          this.saveToken(data.token);
+        }
+        return data;
+      })
+    );
+
+    return request;
+  }
+
+
+
+
   public register(user: TokenPayload): Observable<any> {
     return this.request('post', 'register', user);
   }
@@ -97,6 +129,9 @@ export class AuthenticationService {
   public logout(): void {
     this.token = '';
     window.localStorage.removeItem('mean-token');
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/updateOne');
+  }
+  public saveData(user:TokenPayload): Observable<any> {
+    return this.myRequest('post', 'updateOne',user);
   }
 }

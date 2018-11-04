@@ -6,13 +6,14 @@ import { AuthenticationService, UserDetails } from '../authentication.service';
 })
 export class ProfileComponent {
   details: UserDetails;
-
+  error:string;
   constructor(private auth: AuthenticationService) {}
   
   ngOnInit() {    
     this.auth.profile().subscribe(user => {
       this.details = user;
     }, (err) => {
+      this.error=err;
       console.error(err);
     });
   }
